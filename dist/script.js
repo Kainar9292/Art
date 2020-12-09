@@ -944,33 +944,35 @@ window.addEventListener('DOMContentLoaded', function () {
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
   \**********************************/
-/*! exports provided: modalClose, scrollWindow, default */
+/*! exports provided: modalClose, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modalClose", function() { return modalClose; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollWindow", function() { return scrollWindow; });
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var calcScroll = function calcScroll() {
-  var div = document.createElement('div');
-  div.style.width = '50px';
-  div.style.height = '50px';
-  div.style.overflowY = 'scroll';
-  div.style.visibility = 'hidden';
-  document.body.appendChild(div);
-  var scrollWidth = div.offsetWidth - div.clientWidth;
-  div.remove();
-  return scrollWidth;
-};
-
 var modals = function modals() {
+  var calcScroll = function calcScroll() {
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
+  };
+
+  var btnPressed = false;
+  var scrollWindow = calcScroll();
+
   function bindModal(triggerSelector, modalSelector, closeSelector) //    validation = false
   {
-    var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var destroy = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     var trigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector),
         close = document.querySelector(closeSelector),
@@ -979,6 +981,12 @@ var modals = function modals() {
       item.addEventListener('click', function (e) {
         if (e.target) {
           e.preventDefault();
+        }
+
+        btnPressed = true;
+
+        if (destroy) {
+          item.remove();
         } // if (validation) {
         //     if (!state[prop] || !state[propTwo]) {
         //         return;
@@ -988,6 +996,7 @@ var modals = function modals() {
 
         windows.forEach(function (item) {
           item.style.display = 'none';
+          item.classList.add('animated', 'fadeIn');
         });
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -1004,7 +1013,7 @@ var modals = function modals() {
       document.body.style.marginRight = "0px";
     });
     modal.addEventListener('click', function (e) {
-      if (e.target === modal && closeClickOverlay) {
+      if (e.target === modal) {
         windows.forEach(function (item) {
           item.style.display = 'none';
         });
@@ -1027,16 +1036,27 @@ var modals = function modals() {
       if (!display) {
         document.querySelector(selector).style.display = 'block';
         document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = "".concat(scrollWindow, "px");
       }
     }, time);
   }
 
+  function openByScroll(selector) {
+    window.addEventListener('scroll', function () {
+      var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+      if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= scrollHeight) {
+        document.querySelector(selector).click();
+      }
+    });
+  }
+
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-  showModalByTime('.popup-consultation', 4000);
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+  openByScroll('.fixed-gift'); // showModalByTime('.popup-consultation', 4000);
 };
 
-var scrollWindow = calcScroll();
 var modalClose;
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
