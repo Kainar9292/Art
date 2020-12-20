@@ -40,8 +40,6 @@ const sliders = (slides, dir, autotime, prev, next) => {
             items[slideIndex - 1].classList.remove('slideInRight');
             items[slideIndex - 1].classList.add('slideInLeft');
         });
-
-
     } catch (e) {}
 
     function activateAnimation() {
@@ -67,8 +65,6 @@ const sliders = (slides, dir, autotime, prev, next) => {
     items[0].parentNode.addEventListener('mouseleave', () => {
         activateAnimation();
     });
-
-
 };
 
 export default sliders;
