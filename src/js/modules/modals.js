@@ -21,10 +21,7 @@ const modals = () => {
     function bindModal(triggerSelector, 
                        modalSelector, 
                        closeSelector,
-                    //    prop, 
-                    //    propTwo,
                        destroy = false, 
-                    //    validation = false
                        ) {
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
@@ -43,11 +40,6 @@ const modals = () => {
                     item.remove();
                 }
 
-                // if (validation) {
-                //     if (!state[prop] || !state[propTwo]) {
-                //         return;
-                //     }
-                // } 
                 windows.forEach(item => {
                     item.style.display = 'none';
                     item.classList.add('animated', 'fadeIn');
@@ -56,9 +48,6 @@ const modals = () => {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 document.body.style.marginRight = `${scrollWindow}px`;
-                
-                modalClose = modalSelector;
-                
             });
         });
 
@@ -115,11 +104,8 @@ const modals = () => {
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
     bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
     openByScroll('.fixed-gift');
-    // showModalByTime('.popup-consultation', 4000);
+    showModalByTime('.popup-consultation', 40000);
 };
 
 
-let modalClose;
-
-export {modalClose};
 export default modals;

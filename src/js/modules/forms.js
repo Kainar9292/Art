@@ -1,6 +1,4 @@
 // import checkNumInputs from './checkNumInputs';
-// import {modalClose} from './modals';
-
 
 const forms = () => {
     const form = document.querySelectorAll('form'),
