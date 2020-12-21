@@ -20,6 +20,8 @@ const mask = (selector) => {
             i = 0,
             def = matrix.replace(/\D/g, ''),
             val = this.value.replace(/\D/g, '');
+            console.log(def);
+            console.log(val);
 
         if (def.length >= val.length) {
             val = def;
@@ -39,8 +41,23 @@ const mask = (selector) => {
     }
 
     let inputs = document.querySelectorAll(selector);
+
+    const focus = (pos, elem) => {
+        elem.focus();
+        elem.setSelectionRange(pos, pos);
+    };
     
     inputs.forEach(input => {
+        input.addEventListener('mouseup', createMask, (e) => {
+            e.preventDefault();
+            input.setSelectionRange(4);
+        });
+        input.addEventListener('keyup', createMask, (e) => {
+            if (e.code == 'ArrowLeft') {
+                e.preventDefault();
+                input.setSelectionRange(4);
+            }
+        });
         input.addEventListener('input', createMask);
         input.addEventListener('focus', createMask);
         input.addEventListener('blur', createMask);
