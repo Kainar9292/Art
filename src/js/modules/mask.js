@@ -20,8 +20,6 @@ const mask = (selector) => {
             i = 0,
             def = matrix.replace(/\D/g, ''),
             val = this.value.replace(/\D/g, '');
-            console.log(def);
-            console.log(val);
 
         if (def.length >= val.length) {
             val = def;
