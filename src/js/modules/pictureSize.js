@@ -1,6 +1,5 @@
 const pictureSize = (imgSelector) => {
     const blocks = document.querySelectorAll(imgSelector);
-    console.log(blocks);
 
     function showImg(block) {
         const img = block.querySelector('img');
