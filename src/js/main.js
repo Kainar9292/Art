@@ -5,11 +5,11 @@ import forms from './modules/forms';
 import mask from './modules/mask';
 import checkTextInputs from './modules/checkTextInputs';
 import showMoreStyles from './modules/showMoreStyles';
-
 import filter from './modules/filter';
 import pictureSize from './modules/pictureSize';
 import accordion from './modules/accordion';
 import burger from './modules/burger';
+import srolling from './modules/scrolling';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -30,4 +30,5 @@ window.addEventListener('DOMContentLoaded', () => {
     pictureSize('.sizes-block');
     accordion('.accordion-heading');
     burger('.burger-menu', '.burger');
+    srolling('.pageup');
 });
