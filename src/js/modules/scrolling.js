@@ -47,6 +47,7 @@ const scrolling = (upSelector) => {
     });
 
 
+
     //Pure js scrolling
     // const element = document.documentElement,
     //       body = document.body;
